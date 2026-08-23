@@ -263,7 +263,7 @@ export default function App() {
     {
       icon: "tag",
       title: "Custom Stiker",
-      text: "Glossy, vinyl, transparan, kiss cut, dan die cut. Bisa custom ukuran, bentuk, dan finishing sesuai kebutuhan.",
+      text: "Glossy, vinyl. Bisa custom ukuran, bentuk, dan finishing sesuai kebutuhan.",
     },
     {
       icon: "palette",
@@ -283,7 +283,7 @@ export default function App() {
       icon: "color",
       title: "Print Full Warna",
       text: "Hasil warna tajam untuk brosur, proposal, dan materi promosi.",
-      price: "Rp2.000 / lembar",
+      price: "Rp3.000 / lembar",
     },
     {
       icon: "printer",
@@ -301,7 +301,7 @@ export default function App() {
       icon: "tag",
       title: "Stiker & Custom",
       text: "Bisa custom nama, bentuk, ukuran, dan desain sesuai kebutuhan.",
-      price: "Mulai Rp3.000",
+      price: "Mulai Rp12.000-Rp.15.000 per lembar",
     },
     {
       icon: "copy",
