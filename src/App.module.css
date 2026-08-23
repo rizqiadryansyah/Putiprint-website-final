@@ -858,6 +858,8 @@
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: 2px;
+  -webkit-overflow-scrolling: touch;
   scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
   scrollbar-width: thin;
 }
@@ -883,6 +885,9 @@
   background: transparent;
   perspective: 1100px;
   scroll-snap-align: start;
+  touch-action: pan-x pan-y;
+  -webkit-user-select: none;
+  user-select: none;
   cursor: pointer;
 }
 

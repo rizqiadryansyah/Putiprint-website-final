@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import s from "./App.module.css";
 
 function LineIcon({ name, className = "" }) {
@@ -155,11 +155,43 @@ function SocialIcon({ name, className = "" }) {
 }
 
 export default function App() {
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openFaq, setOpenFaq] = useState(null);
   const [theme, setTheme] = useState("light");
   const [menuOpen, setMenuOpen] = useState(false);
   const [missingGallery, setMissingGallery] = useState({});
   const [flippedGallery, setFlippedGallery] = useState(null);
+  const galleryGesture = useRef({ index: null, startX: 0, startY: 0, moved: false });
+
+  const startGalleryGesture = (event, index) => {
+    galleryGesture.current = {
+      index,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false,
+    };
+  };
+
+  const trackGalleryGesture = (event, index) => {
+    const gesture = galleryGesture.current;
+    if (gesture.index !== index) return;
+
+    const distanceX = Math.abs(event.clientX - gesture.startX);
+    const distanceY = Math.abs(event.clientY - gesture.startY);
+    if (distanceX > 10 || distanceY > 10) gesture.moved = true;
+  };
+
+  const toggleGalleryCard = (event, index, isFlipped) => {
+    const gesture = galleryGesture.current;
+    const wasSwipe = gesture.index === index && gesture.moved;
+    galleryGesture.current = { index: null, startX: 0, startY: 0, moved: false };
+
+    if (wasSwipe) {
+      event.preventDefault();
+      return;
+    }
+
+    setFlippedGallery(isFlipped ? null : index);
+  };
 
   useEffect(() => {
     document.title = "Puti Creative Print — Putiprint.id | Printing Samarinda";
@@ -231,7 +263,7 @@ export default function App() {
     {
       icon: "tag",
       title: "Custom Stiker",
-      text: "Glossy, vinyl. Bisa custom ukuran, bentuk, dan finishing sesuai kebutuhan.",
+      text: "Glossy, vinyl, transparan, kiss cut, dan die cut. Bisa custom ukuran, bentuk, dan finishing sesuai kebutuhan.",
     },
     {
       icon: "palette",
@@ -251,7 +283,7 @@ export default function App() {
       icon: "color",
       title: "Print Full Warna",
       text: "Hasil warna tajam untuk brosur, proposal, dan materi promosi.",
-      price: "Rp3.000 / lembar",
+      price: "Rp2.000 / lembar",
     },
     {
       icon: "printer",
@@ -261,7 +293,7 @@ export default function App() {
     },
     {
       icon: "camera",
-      title: "Polaroid / Print Pas Foto",
+      title: "Polaroid / Print Foto",
       text: "Cocok untuk foto kenangan, tugas sekolah, dan kebutuhan dekorasi.",
       price: "Mulai Rp3.000",
     },
@@ -293,7 +325,7 @@ export default function App() {
       icon: "mail",
       title: "Cetak Undangan",
       text: "Untuk acara pribadi, sekolah, dan kebutuhan event kecil maupun besar.",
-      price: "Mulai Rp1.000 / pcs",
+      price: "Mulai Rp1.500 / pcs",
     },
     {
       icon: "scissors",
@@ -620,7 +652,10 @@ export default function App() {
                     <small>Geser untuk melihat • tap untuk detail</small>
                   </div>
 
-                  <div className={s.galleryReel}>
+                  <div
+                    className={s.galleryReel}
+                    onScroll={() => setFlippedGallery(null)}
+                  >
                     {galleryItems.map((item, index) => {
                       const isMissing = Boolean(missingGallery[index]);
                       const isFlipped = flippedGallery === index;
@@ -630,7 +665,17 @@ export default function App() {
                           type="button"
                           key={item.title}
                           className={`${s.galleryFlipCard} ${isFlipped ? s.galleryFlipActive : ""}`}
-                          onClick={() => setFlippedGallery(isFlipped ? null : index)}
+                          onPointerDown={(event) => startGalleryGesture(event, index)}
+                          onPointerMove={(event) => trackGalleryGesture(event, index)}
+                          onPointerCancel={() => {
+                            galleryGesture.current = {
+                              index: null,
+                              startX: 0,
+                              startY: 0,
+                              moved: false,
+                            };
+                          }}
+                          onClick={(event) => toggleGalleryCard(event, index, isFlipped)}
                           aria-pressed={isFlipped}
                           aria-label={`${item.title}: buka atau tutup detail`}
                         >
@@ -830,7 +875,7 @@ export default function App() {
 
                 <div className={s.socialRow}>
                   <a
-                    href="https://wa.me/6282191679126?text=Halo%20saya%20mau%20order"
+                    href="https://wa.me/6282191679126?text=Halo%20saya%20mau%20order%20printing"
                     target="_blank"
                     rel="noreferrer"
                     className={s.socialLink}
