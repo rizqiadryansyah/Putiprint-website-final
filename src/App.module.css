@@ -898,6 +898,7 @@
   display: block;
   border-radius: inherit;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 0.72s cubic-bezier(0.2, 0.75, 0.2, 1);
 }
 
@@ -916,6 +917,8 @@
   align-items: flex-end;
   justify-content: flex-start;
   background: #222431;
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
 }
 
 .galleryFlipImage {
@@ -934,7 +937,8 @@
   border-radius: 999px;
   color: #ffffff;
   background: rgba(16, 16, 22, 0.68);
-  backdrop-filter: blur(8px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -950,6 +954,7 @@
   background: #c9437b;
   text-align: left;
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 .galleryBackKicker {
@@ -990,6 +995,7 @@
 
 .galleryFlipActive .galleryFlipInner {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 .galleryPlaceholder {
