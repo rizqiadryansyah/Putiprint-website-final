@@ -301,7 +301,7 @@ export default function App() {
       icon: "tag",
       title: "Stiker & Custom",
       text: "Bisa custom nama, bentuk, ukuran, dan desain sesuai kebutuhan.",
-      price: "Mulai Rp12.000-Rp.15.000 per lembar",
+      price: "Mulai Rp12.000-Rp.15.000 / lembar",
     },
     {
       icon: "copy",
