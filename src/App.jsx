@@ -325,7 +325,7 @@ export default function App() {
       icon: "mail",
       title: "Cetak Undangan",
       text: "Untuk acara pribadi, sekolah, dan kebutuhan event kecil maupun besar.",
-      price: "Mulai Rp1.500 / pcs",
+      price: "Mulai Rp1.000 / pcs",
     },
     {
       icon: "scissors",
